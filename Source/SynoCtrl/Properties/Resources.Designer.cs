@@ -22,7 +22,7 @@ namespace SynoCtrl.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    internal class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace SynoCtrl.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SynoCtrl.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace SynoCtrl.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -71,9 +71,9 @@ namespace SynoCtrl.Properties {
         ///  synoctrl getmac   [&lt;name&gt;] [-c &lt;config&gt;] [--silent] [--verbose] [--ip &lt;ip&gt;]   
         ///  synoctrl ping   [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string docopt {
+        internal static string cmd_schema {
             get {
-                return ResourceManager.GetString("docopt", resourceCulture);
+                return ResourceManager.GetString("cmd_schema", resourceCulture);
             }
         }
     }
