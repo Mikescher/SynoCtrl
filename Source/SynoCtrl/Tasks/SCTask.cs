@@ -9,6 +9,7 @@ namespace SynoCtrl.Tasks
 		private static readonly string[] DEFAULT_PATHS =
 		{
 			@"synoctrl.toml",
+			@"%userprofile%\.config\synoctrl.toml",
 			@"%userprofile%\synoctrl.toml",
 			@"%appdata%\synoctrl\synoctrl.toml",
 		};
@@ -16,6 +17,8 @@ namespace SynoCtrl.Tasks
 		protected int WriteError(string msg, Exception e = null) => SynoCtrlProgram.Logger.WriteError(msg, e);
 
 		protected int WriteOutput(string msg) => SynoCtrlProgram.Logger.WriteOutput(msg);
+
+		protected int WriteInfoOutput(string msgSilent, string msgNormal) => SynoCtrlProgram.Logger.WriteInfoOutput(msgSilent, msgNormal);
 
 		protected void WriteInfo(string msg) => SynoCtrlProgram.Logger.WriteInfo(msg);
 
@@ -72,15 +75,18 @@ namespace SynoCtrl.Tasks
 			
 			WriteDebug("No config file loaded from the filesystem");
 			WriteDebug();
+
+			if (SynoCtrlProgram.Arguments["<name>"] != null) throw new SynoCtrlConfigParseException($"Device '{SynoCtrlProgram.Arguments["<name>"].Value}' not found");
+
 			return PatchConfigWithParams(SynoCtrlConfig.CreateEmpty());
 		}
 
 		private SynoCtrlConfig PatchConfigWithParams(SynoCtrlConfig cfg)
 		{
-			if (SynoCtrlProgram.Arguments["--mac"]      != null) cfg.Default.MacAddress = $"{SynoCtrlProgram.Arguments["--mac"].Value}";
-			if (SynoCtrlProgram.Arguments["--ip"]       != null) cfg.Default.IPAddress  = $"{SynoCtrlProgram.Arguments["--ip"].Value}";
-			if (SynoCtrlProgram.Arguments["--user"]     != null) cfg.Default.Username   = $"{SynoCtrlProgram.Arguments["--user"].Value}";
-			if (SynoCtrlProgram.Arguments["--password"] != null) cfg.Default.Password   = $"{SynoCtrlProgram.Arguments["--password"].Value}";
+			if (SynoCtrlProgram.Arguments["--mac"]      != null) cfg.Selected.MacAddress = $"{SynoCtrlProgram.Arguments["--mac"].Value}";
+			if (SynoCtrlProgram.Arguments["--ip"]       != null) cfg.Selected.IPAddress  = $"{SynoCtrlProgram.Arguments["--ip"].Value}";
+			if (SynoCtrlProgram.Arguments["--user"]     != null) cfg.Selected.Username   = $"{SynoCtrlProgram.Arguments["--user"].Value}";
+			if (SynoCtrlProgram.Arguments["--password"] != null) cfg.Selected.Password   = $"{SynoCtrlProgram.Arguments["--password"].Value}";
 
 			return cfg;
 		}

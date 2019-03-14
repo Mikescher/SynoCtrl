@@ -11,21 +11,21 @@ namespace SynoCtrl.Tasks.Impl
 		{
 			var config = FindConfig();
 
-			if (config.Default.MacAddressRaw == null) return WriteError("No MAC address specified");
+			if (config.Selected.MacAddressRaw == null) return WriteError("No MAC address specified");
 
-			WriteDebug($"Target MAC address is {config.Default.MacAddress}");
+			WriteDebug($"Target MAC address is {config.Selected.MacAddress}");
 			WriteDebug();
 
 			try
 			{
-				SendWOL(config.Default.MacAddressRaw);
+				SendWOL(config.Selected.MacAddressRaw);
 			}
 			catch (Exception e)
 			{
 				return WriteError($"An error occured while sending WOL package: {e.Message}", e);
 			}
 
-			return WriteOutput($"WOL Package sent to {config.Default.MacAddress}");
+			return WriteInfoOutput("Done.", $"WOL Package sent to {config.Selected.MacAddress}");
 		}
 
 		private void SendWOL(byte[] macaddr)

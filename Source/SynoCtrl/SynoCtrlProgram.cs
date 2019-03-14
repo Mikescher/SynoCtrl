@@ -34,6 +34,7 @@ namespace SynoCtrl
 			try
 			{
 				if (Arguments["wol"].IsTrue) return new WakeOnLANTask().Run();
+				if (Arguments["getmac"].IsTrue) return new GetMacTask().Run();
 			}
 			catch (Exception e)
 			{

@@ -58,6 +58,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Tasks\Impl\GetMacTask.cs" />
     <Compile Include="Tasks\SCTask.cs" />
     <Compile Include="Tasks\Impl\WakeOnLANTask.cs" />
     <Compile Include="Tasks\TaskException.cs" />
