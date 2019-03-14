@@ -1,11 +1,14 @@
 ﻿using System;
+using DocoptNet;
+using SynoCtrl.Properties;
 
 namespace SynoCtrl
 {
-	class Program
+	public static class Program
 	{
-		static void Main(string[] args)
+		public static void Main(string[] args)
 		{
+			var arguments = new Docopt().Apply(Resources.docopt, args, version: "Naval Fate 2.0", exit: true);
 			Console.WriteLine("Hello World!");
 		}
 	}
