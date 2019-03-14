@@ -64,12 +64,21 @@ namespace SynoCtrl.Properties {
         ///   Looks up a localized string similar to SynologyController.
         ///
         ///Usage:
-        ///  synoctrl status   [&lt;name&gt;] [-c &lt;config&gt;] [--silent] [--verbose] [--ip &lt;ip&gt;]   [-u &lt;user&gt;] [-p &lt;password&gt;]
-        ///  synoctrl shutdown [&lt;name&gt;] [-c &lt;config&gt;] [--silent] [--verbose] [--ip &lt;ip&gt;]   [-u &lt;user&gt;] [-p &lt;password&gt;]
-        ///  synoctrl wol      [&lt;name&gt;] [-c &lt;config&gt;] [--silent] [--verbose] [--mac &lt;mac&gt;] 
-        ///  synoctrl getip    [&lt;name&gt;] [-c &lt;config&gt;] [--silent] [--verbose] [--mac &lt;mac&gt;] 
-        ///  synoctrl getmac   [&lt;name&gt;] [-c &lt;config&gt;] [--silent] [--verbose] [--ip &lt;ip&gt;]   
-        ///  synoctrl ping   [rest of string was truncated]&quot;;.
+        ///  synoctrl status        [&lt;name&gt;] [options]
+        ///  synoctrl shutdown      [&lt;name&gt;] [options]
+        ///  synoctrl wol           [&lt;name&gt;] [options]
+        ///  synoctrl getip         [&lt;name&gt;] [options]
+        ///  synoctrl getmac        [&lt;name&gt;] [options]
+        ///  synoctrl ping          [&lt;name&gt;] [options]
+        ///  synoctrl create-config          [options]
+        ///  
+        ///  synoctrl -h | --help
+        ///  synoctrl --version
+        ///
+        ///Options:
+        ///  -h --help                      Show this screen.
+        ///  --version                      Show version.
+        ///  -- [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string cmd_schema {
             get {

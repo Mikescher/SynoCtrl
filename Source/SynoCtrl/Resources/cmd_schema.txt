@@ -1,0 +1,26 @@
+SynologyController.
+
+Usage:
+  synoctrl status        [<name>] [options]
+  synoctrl shutdown      [<name>] [options]
+  synoctrl wol           [<name>] [options]
+  synoctrl getip         [<name>] [options]
+  synoctrl getmac        [<name>] [options]
+  synoctrl ping          [<name>] [options]
+  synoctrl create-config          [options]
+  
+  synoctrl -h | --help
+  synoctrl --version
+
+Options:
+  -h --help                      Show this screen.
+  --version                      Show version.
+  --mac <mac>                    Specify the Mac address of the NAS.
+  --ip <ip>                      Specify the IP address of the NAS
+  -u <user> --user <user>        Specify your Synology username.
+  -p <user> --password <user>    Specify your Synology password.
+  -c <config> --config <config>  Use this specific config file,
+                                 if not specified the default locations are searched for config files.
+  -s --silent                    Do not output anything except the result.
+  -v --verbose                   Output debug messages.
+
