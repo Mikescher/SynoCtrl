@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using MSHC.Math.Encryption;
 using SynoCtrl.Util;
 
 namespace SynoCtrl.Tasks.Impl
@@ -50,7 +51,7 @@ namespace SynoCtrl.Tasks.Impl
 			for (var i = 0; i < 6; i++) packet.Add(0xFF);
 			for (var i = 0; i < 16; i++) packet.AddRange(macaddr);
 			
-			WriteDebug($"Sending UDP package to [{IPAddress.Broadcast}]:{42} with data\n{SCUtil.FormatByteArrayToHex(packet, ":", 6, "", true)}");
+			WriteDebug($"Sending UDP package to [{IPAddress.Broadcast}]:{42} with data\n{EncodingConverter.ByteArrayToHexDump(packet, ":", 6, "", true)}");
 			WriteDebug();
 
 			using(var client = new UdpClient())

@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using MSHC.Math.Encryption;
 using SynoCtrl.Tasks;
 using SynoCtrl.Util;
 
@@ -23,7 +24,7 @@ namespace SynoCtrl.Config
 
 		public string MACAddress
 		{
-			get => SCUtil.FormatByteArrayToHex(_macAddress, ":", -1, null, true);
+			get => EncodingConverter.ByteArrayToHexDump(_macAddress, ":", -1, null, true);
 			set => _macAddress = SCUtil.ParseMacAddress(value, true);
 		}
 

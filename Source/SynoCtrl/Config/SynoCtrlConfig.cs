@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Tommy;
+using MSHC.Serialization;
 
 namespace SynoCtrl.Config
 {

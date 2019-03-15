@@ -51,7 +51,6 @@
     <Compile Include="Config\SynoCtrlConfigParseException.cs" />
     <Compile Include="Logger\SLogger.cs" />
     <Compile Include="Tasks\Impl\PingTask.cs" />
-    <Compile Include="Util\ProcessHelper.cs" />
     <Compile Include="Util\SCUtil.cs" />
     <Compile Include="SynoCtrlProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -65,7 +64,6 @@
     <Compile Include="Tasks\SCTask.cs" />
     <Compile Include="Tasks\Impl\WakeOnLANTask.cs" />
     <Compile Include="Tasks\TaskException.cs" />
-    <Compile Include="Tommy\Tommy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -79,6 +77,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\cmd_schema.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CSharpUtils\CSharpUtils.csproj">
+      <Project>{d661cd9f-8934-496d-8332-bc82aab77598}</Project>
+      <Name>CSharpUtils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

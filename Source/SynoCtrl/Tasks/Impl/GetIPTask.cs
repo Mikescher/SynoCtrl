@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using MSHC.Util.Helper;
 using SynoCtrl.Util;
-using SynoCtrl.Util.MSHC.Util.Helper;
 
 namespace SynoCtrl.Tasks.Impl
 {

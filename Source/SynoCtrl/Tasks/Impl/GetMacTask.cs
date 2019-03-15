@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Security;
+using MSHC.Math.Encryption;
 using SynoCtrl.Util;
 
 namespace SynoCtrl.Tasks.Impl
@@ -26,7 +27,7 @@ namespace SynoCtrl.Tasks.Impl
 			try
 			{
 				var mac = ExecuteDirect(config.Selected.IPAddressRaw);
-				var strmac = SCUtil.FormatByteArrayToHex(mac, ":", -1, string.Empty, true);
+				var strmac = EncodingConverter.ByteArrayToHexDump(mac, ":", -1, string.Empty, true);
 				return WriteInfoOutput(strmac, $"The MAC address of {config.Selected.IPAddress} is {strmac}");
 			}
 			catch (TaskException)
