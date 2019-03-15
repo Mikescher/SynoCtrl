@@ -13,8 +13,14 @@ namespace SynoCtrl.Tasks.Impl
 		{
 			var config = FindConfig();
 
-			if (config.Selected.MacAddress == null) return WriteError("No MAC address specified");
+			if (config.Selected.MACAddressRaw == null) return WriteError("No MAC address specified");
 			
+			var ip = ExecuteDirect(config.Selected.MACAddressRaw);
+			return WriteInfoOutput(ip.ToString(), $"The IP address of {config.Selected.MACAddress} is {ip}");
+		}
+
+		public IPAddress ExecuteDirect(byte[] macaddr)
+		{
 			WriteDebug($"Executing arp -a");
 			var output = ProcessHelper.ProcExecute("arp", "-a");
 			WriteDebug(output.StdCombined);
@@ -24,10 +30,10 @@ namespace SynoCtrl.Tasks.Impl
 
 			var arpdata = ParseARPOutput(output.StdOut);
 
-			var mac = arpdata.FirstOrDefault(p => p.Item2.SequenceEqual(config.Selected.MacAddressRaw));
-			if (mac != null) return WriteInfoOutput(mac.Item1.ToString(), $"The IP address of {config.Selected.MacAddress} is {mac.Item1}");
+			var mac = arpdata.FirstOrDefault(p => p.Item2.SequenceEqual(macaddr));
+			if (mac != null) return mac.Item1;
 			
-			return WriteOutput("MAC Address not in local ARP table - Cannot determine IP Adress");
+			throw new TaskException($"MAC Address not in local ARP table - Cannot determine IP Adress");
 		}
 
 		private static IEnumerable<Tuple<IPAddress, byte[]>> ParseARPOutput(string stdout)

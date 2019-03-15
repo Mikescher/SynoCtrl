@@ -50,6 +50,7 @@
     <Compile Include="Config\SynoCtrlConfig.cs" />
     <Compile Include="Config\SynoCtrlConfigParseException.cs" />
     <Compile Include="Logger\SLogger.cs" />
+    <Compile Include="Tasks\Impl\PingTask.cs" />
     <Compile Include="Util\ProcessHelper.cs" />
     <Compile Include="Util\SCUtil.cs" />
     <Compile Include="SynoCtrlProgram.cs" />
@@ -60,7 +61,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Tasks\Impl\GetIPTask.cs" />
-    <Compile Include="Tasks\Impl\GetMacTask.cs" />
+    <Compile Include="Tasks\Impl\GetMACTask.cs" />
     <Compile Include="Tasks\SCTask.cs" />
     <Compile Include="Tasks\Impl\WakeOnLANTask.cs" />
     <Compile Include="Tasks\TaskException.cs" />

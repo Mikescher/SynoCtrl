@@ -12,21 +12,36 @@ namespace SynoCtrl.Tasks.Impl
 		{
 			var config = FindConfig();
 
-			if (config.Selected.MacAddressRaw == null) return WriteError("No MAC address specified");
+			if (config.Selected.MACAddressRaw == null)
+			{
+				if (config.Selected.IPAddressRaw == null) return WriteError("No MAC address or IP address specified");
+				
+				WriteInfo($"No MAC address configured - trying to send ARP request to IP address {config.Selected.IPAddress}");
+				WriteInfo();
 
-			WriteDebug($"Target MAC address is {config.Selected.MacAddress}");
+				config.Selected.SetMACAddress(new GetMACTask().ExecuteDirect(config.Selected.IPAddressRaw));
+
+				WriteInfo($"MAC address found: {config.Selected.MACAddress}");
+				WriteInfo();
+			}
+
+			WriteDebug($"Target MAC address is {config.Selected.MACAddress}");
 			WriteDebug();
 
 			try
 			{
-				SendWOL(config.Selected.MacAddressRaw);
+				SendWOL(config.Selected.MACAddressRaw);
+			}
+			catch (TaskException)
+			{
+				throw;
 			}
 			catch (Exception e)
 			{
 				return WriteError($"An error occured while sending WOL package: {e.Message}", e);
 			}
 
-			return WriteInfoOutput("Done.", $"WOL Package sent to {config.Selected.MacAddress}");
+			return WriteInfoOutput("Done.", $"WOL Package sent to {config.Selected.MACAddress}");
 		}
 
 		private void SendWOL(byte[] macaddr)

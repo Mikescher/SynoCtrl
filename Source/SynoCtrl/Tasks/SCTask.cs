@@ -45,7 +45,7 @@ namespace SynoCtrl.Tasks
 				catch (SynoCtrlConfigParseException e)
 				{
 					WriteDebug();
-					throw new TaskException(e.Message);
+					throw new TaskException(e.Message, e);
 				}
 			}
 
@@ -69,7 +69,7 @@ namespace SynoCtrl.Tasks
 				catch (SynoCtrlConfigParseException e)
 				{
 					WriteDebug();
-					throw new TaskException(e.Message);
+					throw new TaskException(e.Message, e);
 				}
 			}
 			
@@ -83,7 +83,7 @@ namespace SynoCtrl.Tasks
 
 		private SynoCtrlConfig PatchConfigWithParams(SynoCtrlConfig cfg)
 		{
-			if (SynoCtrlProgram.Arguments["--mac"]      != null) cfg.Selected.MacAddress = $"{SynoCtrlProgram.Arguments["--mac"].Value}";
+			if (SynoCtrlProgram.Arguments["--mac"]      != null) cfg.Selected.MACAddress = $"{SynoCtrlProgram.Arguments["--mac"].Value}";
 			if (SynoCtrlProgram.Arguments["--ip"]       != null) cfg.Selected.IPAddress  = $"{SynoCtrlProgram.Arguments["--ip"].Value}";
 			if (SynoCtrlProgram.Arguments["--user"]     != null) cfg.Selected.Username   = $"{SynoCtrlProgram.Arguments["--user"].Value}";
 			if (SynoCtrlProgram.Arguments["--password"] != null) cfg.Selected.Password   = $"{SynoCtrlProgram.Arguments["--password"].Value}";
@@ -99,7 +99,7 @@ namespace SynoCtrl.Tasks
 			}
 			catch (TaskException e1)
 			{
-				return WriteError(e1.Message);
+				return WriteError(e1.Message, e1.InnerException);
 			}
 			catch (Exception e2)
 			{

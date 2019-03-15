@@ -46,8 +46,17 @@ namespace SynoCtrl.Config
 				string defaultName = null;
 				List<SingleDeviceConfig> devices = new List<SingleDeviceConfig>();
 
-				if (!data.HasKey("Default")) throw new SynoCtrlConfigParseException("Missing key [Default]");
-				if (data["Default"] is TomlString s) defaultName = s; else throw new SynoCtrlConfigParseException("Key [Default] must be a string");
+				if (data.HasKey("Default"))
+				{
+					if (data["Default"] is TomlString s)
+					{
+						if (!string.IsNullOrWhiteSpace(s)) defaultName = s;
+					}
+					else
+					{
+						throw new SynoCtrlConfigParseException("Key [Default] must be a string");
+					}
+				}
 
 				if (data["Device"] is TomlArray a)
 				{
@@ -62,7 +71,7 @@ namespace SynoCtrl.Config
 							var cfg = new SingleDeviceConfig(cfgName, false);
 
 							if (t.HasKey("IP")      ) { if (t["IP"]       is TomlString vIP)       cfg.IPAddress  = vIP.Value.Trim();       else throw new SynoCtrlConfigParseException("Key [IP] must be a string"); }
-							if (t.HasKey("Mac")     ) { if (t["Mac"]      is TomlString vMac)      cfg.MacAddress = vMac.Value.Trim();      else throw new SynoCtrlConfigParseException("Key [Mac] must be a string"); }
+							if (t.HasKey("Mac")     ) { if (t["Mac"]      is TomlString vMac)      cfg.MACAddress = vMac.Value.Trim();      else throw new SynoCtrlConfigParseException("Key [Mac] must be a string"); }
 							if (t.HasKey("Username")) { if (t["Username"] is TomlString vUsername) cfg.Username   = vUsername.Value.Trim(); else throw new SynoCtrlConfigParseException("Key [Username] must be a string"); }
 							if (t.HasKey("Password")) { if (t["Password"] is TomlString vPassword) cfg.Password   = vPassword.Value.Trim(); else throw new SynoCtrlConfigParseException("Key [Password] must be a string"); }
 

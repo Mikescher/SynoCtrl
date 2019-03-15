@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Reflection;
 using DocoptNet;
 using SynoCtrl.Logger;
-using SynoCtrl.Tasks;
 using SynoCtrl.Tasks.Impl;
 
 namespace SynoCtrl
@@ -34,8 +33,9 @@ namespace SynoCtrl
 			try
 			{
 				if (Arguments["wol"].IsTrue)    return new WakeOnLANTask().Run();
-				if (Arguments["getmac"].IsTrue) return new GetMacTask().Run();
+				if (Arguments["getmac"].IsTrue) return new GetMACTask().Run();
 				if (Arguments["getip"].IsTrue)  return new GetIPTask().Run();
+				if (Arguments["ping"].IsTrue)   return new PingTask().Run();
 			}
 			catch (Exception e)
 			{
