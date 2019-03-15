@@ -40,7 +40,7 @@ namespace SynoCtrl.Tasks.Impl
 			WriteDebug($"Target IP address is {config.Selected.IPAddress}");
 			WriteDebug();
 
-			SynologyAPI.Login(config.Selected.IPAddressRaw, config.Selected.Username, config.Selected.Password, config.Selected.Port ?? -1, config.Selected.UseTLS);
+			SynologyAPI.Status(config.Selected.IPAddressRaw, config.Selected.Port ?? -1, config.Selected.UseTLS, config.Selected.Username, config.Selected.Password);
 
 			return 0;
 		}

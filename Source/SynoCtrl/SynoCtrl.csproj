@@ -76,6 +76,7 @@
     <Compile Include="Tasks\Impl\WakeOnLANTask.cs" />
     <Compile Include="Tasks\TaskException.cs" />
     <Compile Include="Util\SynologyAPI.cs" />
+    <Compile Include="Util\SynologyAPIErrors.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

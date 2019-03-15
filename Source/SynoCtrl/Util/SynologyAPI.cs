@@ -24,6 +24,8 @@ namespace SynoCtrl.Util
 	
 		private static readonly Random RAND = new Random();
 
+
+
 		public static void Status(IPAddress addr, long port, bool tls, string username, string password)
 		{
 			var session = Login(addr, port, tls, username, password);
@@ -77,6 +79,9 @@ namespace SynoCtrl.Util
 		private static JToken Query(IPAddress addr, long port, bool tls, string api, string method, Tuple<string, string> session, Tuple<string, string>[] parameter)
 		{
 			var info = Query(addr, port, tls, "query.cgi", "SYNO.API.Info", 1, "query", null, new[] { P("query", api) });
+
+			if (!info.ContainsKey(api)) throw new TaskException($"API target {api}' not found");
+
 			var path = info[api]["path"].Value<string>();
 			var vers = info[api]["maxVersion"].Value<int>();
 	
@@ -84,7 +89,7 @@ namespace SynoCtrl.Util
 		}
 
 		// ReSharper disable once DelegateSubtraction
-		private static JToken Query(IPAddress addr, long port, bool tls, string endpoint, string api, int version, string method, Tuple<string, string> auth, Tuple<string, string>[] parameter)
+		private static JObject Query(IPAddress addr, long port, bool tls, string endpoint, string api, int version, string method, Tuple<string, string> auth, Tuple<string, string>[] parameter)
 		{
 			try
 			{
@@ -143,18 +148,26 @@ namespace SynoCtrl.Util
 					else
 					{
 						var content = Encoding.UTF8.GetString(response.Content.ReadAsByteArrayAsync().Result);
+
 						SynoCtrlProgram.Logger.WriteDebug($"API responded with status code {response.StatusCode}: {content}");
 						SynoCtrlProgram.Logger.WriteDebug();
 						
 						var json = JObject.Parse(content);
 
-						if (!json.ContainsKey("success") || !json.GetValue("success").Value<bool>()) throw new TaskException($"API query failed with {json["error"].ToString(Formatting.None)}");
+						if (json.ContainsKey("success") && json.GetValue("success").Value<bool>()) return (JObject) json["data"];
 
-						return json["data"];
+						if (json["data"]?["code"] == null) throw new TaskException($"API query failed with {json["error"].ToString(Formatting.None)}");
+
+						var errorcode = json["data"]["code"].Value<int>();
+
+						var errormessage = SynologyAPIErrors.GetErrorMessage(api, errorcode);
+						if (errormessage != null) throw new TaskException($"API query failed with error {errorcode}: {errormessage}");
+
+						throw new TaskException($"API query failed with unknown error code {errorcode}");
 					}
 				}
 			}
-			catch (TaskException e)
+			catch (TaskException)
 			{
 				throw;
 			}
