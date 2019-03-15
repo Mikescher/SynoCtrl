@@ -20,7 +20,7 @@ namespace SynoCtrl.Tasks
 
 		protected int WriteInfoOutput(string msgSilent, string msgNormal) => SynoCtrlProgram.Logger.WriteInfoOutput(msgSilent, msgNormal);
 
-		protected void WriteInfo(string msg) => SynoCtrlProgram.Logger.WriteInfo(msg);
+		protected void WriteInfo(string msg = "") => SynoCtrlProgram.Logger.WriteInfo(msg);
 
 		protected void WriteDebug(string msg = "") => SynoCtrlProgram.Logger.WriteDebug(msg);
 

@@ -3,15 +3,12 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using SynoCtrl.Tasks;
+using SynoCtrl.Util;
 
 namespace SynoCtrl.Config
 {
 	public class SingleDeviceConfig
 	{
-		private static readonly Regex REX_MAC_1 = new Regex(@"^[0-9A-Fa-f]{2}(:[0-9A-Fa-f]{2}){5}$", RegexOptions.Compiled);
-		private static readonly Regex REX_MAC_2 = new Regex(@"^[0-9A-Fa-f]{2}(-[0-9A-Fa-f]{2}){5}$", RegexOptions.Compiled);
-		private static readonly Regex REX_MAC_3 = new Regex(@"^([0-9A-Fa-f]{2}){6}$", RegexOptions.Compiled);
-
 		private byte[] _macAddress = null;
 		private IPAddress _ipAddress = null;
 
@@ -30,7 +27,7 @@ namespace SynoCtrl.Config
 		public string MacAddress
 		{
 			get => SCUtil.FormatByteArrayToHex(_macAddress, ":", -1, null, true);
-			set => _macAddress = ConvertMacAddressAsByteArray(value);
+			set => _macAddress = SCUtil.ParseMacAddress(value, true);
 		}
 
 		public byte[] MacAddressRaw => _macAddress;
@@ -47,17 +44,6 @@ namespace SynoCtrl.Config
 			if (System.Net.IPAddress.TryParse(value, out var result)) return result;
 			
 			throw new TaskException($"Not a valid IP address: '{value}'");
-		}
-
-		private static byte[] ConvertMacAddressAsByteArray(string addr)
-		{
-			if (string.IsNullOrWhiteSpace(addr)) return null;
-
-			if (REX_MAC_1.IsMatch(addr)) return addr.Split(':').Select(p => Convert.ToByte(p, 16)).ToArray();
-			if (REX_MAC_2.IsMatch(addr)) return addr.Split('-').Select(p => Convert.ToByte(p, 16)).ToArray();
-			if (REX_MAC_3.IsMatch(addr)) return Enumerable.Range(0,6).Select(i => Convert.ToByte(addr.Substring(2*i, 2),16)).ToArray();
-
-			throw new TaskException($"Not a valid MAC address: '{addr}'");
 		}
 	}
 }

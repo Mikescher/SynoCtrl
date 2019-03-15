@@ -35,7 +35,7 @@ namespace SynoCtrl.Logger
 			return 0;
 		}
 
-		public void WriteInfo(string msg)
+		public void WriteInfo(string msg = "")
 		{
 			if (silent) return;
 			Console.Out.WriteLine(msg);

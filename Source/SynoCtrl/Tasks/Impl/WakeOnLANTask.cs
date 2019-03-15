@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using SynoCtrl.Util;
 
 namespace SynoCtrl.Tasks.Impl
 {
