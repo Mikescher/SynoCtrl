@@ -36,6 +36,7 @@ namespace SynoCtrl
 				if (Arguments["getmac"].IsTrue) return new GetMACTask().Run();
 				if (Arguments["getip"].IsTrue)  return new GetIPTask().Run();
 				if (Arguments["ping"].IsTrue)   return new PingTask().Run();
+				if (Arguments["status"].IsTrue) return new StatusTask().Run();
 			}
 			catch (Exception e)
 			{

@@ -42,8 +42,12 @@
     <Reference Include="DocoptNet, Version=0.0.0.0, Culture=neutral, PublicKeyToken=7a38c71da49a547e, processorArchitecture=MSIL">
       <HintPath>..\packages\docopt.net.0.6.1.10\lib\net40\DocoptNet.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,6 +61,7 @@
     <Compile Include="Config\SynoCtrlConfigParseException.cs" />
     <Compile Include="Logger\SLogger.cs" />
     <Compile Include="Tasks\Impl\PingTask.cs" />
+    <Compile Include="Tasks\Impl\StatusTask.cs" />
     <Compile Include="Util\SCUtil.cs" />
     <Compile Include="SynoCtrlProgram.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,6 +75,7 @@
     <Compile Include="Tasks\SCTask.cs" />
     <Compile Include="Tasks\Impl\WakeOnLANTask.cs" />
     <Compile Include="Tasks\TaskException.cs" />
+    <Compile Include="Util\SynologyAPI.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -92,6 +98,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.4.0.2\build\Fody.targets" Condition="Exists('..\packages\Fody.4.0.2\build\Fody.targets')" />

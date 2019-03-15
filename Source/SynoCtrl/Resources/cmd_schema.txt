@@ -15,12 +15,15 @@ Usage:
 Options:
   -h --help                      Show this screen.
   --version                      Show version.
-  --mac <mac>                    Specify the Mac address of the NAS.
-  --ip <ip>                      Specify the IP address of the NAS
+  --mac <mac>                    The Mac address of the NAS.
+  --ip <ip>                      The IP address of the NAS
+  --port <ip>                    The Port of the DSM interface of your NAS
+  --https                        Use TSL to connect to the DSM API
   -u <user> --user <user>        Specify your Synology username.
   -p <user> --password <user>    Specify your Synology password.
   -c <config> --config <config>  Use this specific config file,
-                                 if not specified the default locations are searched for config files.
+                                 if not specified the default locations 
+                                 are searched for config files.
   -s --silent                    Do not output anything except the result.
   -v --verbose                   Output debug messages.
 
