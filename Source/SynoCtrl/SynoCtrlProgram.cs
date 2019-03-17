@@ -32,11 +32,13 @@ namespace SynoCtrl
 
 			try
 			{
-				if (Arguments["wol"].IsTrue)    return new WakeOnLANTask().Run();
-				if (Arguments["getmac"].IsTrue) return new GetMACTask().Run();
-				if (Arguments["getip"].IsTrue)  return new GetIPTask().Run();
-				if (Arguments["ping"].IsTrue)   return new PingTask().Run();
-				if (Arguments["status"].IsTrue) return new StatusTask().Run();
+				if (Arguments["wol"].IsTrue)      return new WakeOnLANTask().Run();
+				if (Arguments["getmac"].IsTrue)   return new GetMACTask().Run();
+				if (Arguments["getip"].IsTrue)    return new GetIPTask().Run();
+				if (Arguments["ping"].IsTrue)     return new PingTask().Run();
+				if (Arguments["status"].IsTrue)   return new StatusTask().Run();
+				if (Arguments["shutdown"].IsTrue) return new ShutdownTask().Run();
+				if (Arguments["reboot"].IsTrue)   return new RebootTask().Run();
 			}
 			catch (Exception e)
 			{

@@ -49,6 +49,12 @@ namespace SynoCtrl.Util
 			var session = Login(addr, port, tls, username, password);
 
 			Query(addr, port, tls, "SYNO.Core.System", "shutdown", session, null);
+		}
+
+		public static void Reboot(IPAddress addr, long port, bool tls, string username, string password)
+		{
+			var session = Login(addr, port, tls, username, password);
+
 			Query(addr, port, tls, "SYNO.Core.System", "reboot", session, null);
 		}
 
@@ -76,7 +82,7 @@ namespace SynoCtrl.Util
 
 		private static Tuple<string, string> P(string key, string value) => Tuple.Create(key, value);
 		
-		private static JToken Query(IPAddress addr, long port, bool tls, string api, string method, Tuple<string, string> session, Tuple<string, string>[] parameter)
+		private static JObject Query(IPAddress addr, long port, bool tls, string api, string method, Tuple<string, string> session, Tuple<string, string>[] parameter)
 		{
 			var info = Query(addr, port, tls, "query.cgi", "SYNO.API.Info", 1, "query", null, new[] { P("query", api) });
 

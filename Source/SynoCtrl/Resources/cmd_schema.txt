@@ -3,6 +3,7 @@ SynologyController.
 Usage:
   synoctrl status        [<name>] [options]
   synoctrl shutdown      [<name>] [options]
+  synoctrl reboot        [<name>] [options]
   synoctrl wol           [<name>] [options]
   synoctrl getip         [<name>] [options]
   synoctrl getmac        [<name>] [options]
