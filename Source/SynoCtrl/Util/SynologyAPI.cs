@@ -89,7 +89,7 @@ namespace SynoCtrl.Util
 			if (!info.ContainsKey(api)) throw new TaskException($"API target {api}' not found");
 
 			var path = info[api]["path"].Value<string>();
-			var vers = info[api]["maxVersion"].Value<int>();
+			var vers = info[api]["minVersion"].Value<int>();
 	
 			return Query(addr, port, tls, path, api, vers, method, session, parameter);
 		}
@@ -162,7 +162,7 @@ namespace SynoCtrl.Util
 
 						if (json.ContainsKey("success") && json.GetValue("success").Value<bool>()) return (JObject) json["data"];
 
-						if (json["data"]?["code"] == null) throw new TaskException($"API query failed with {json["error"].ToString(Formatting.None)}");
+						if (json["error"]?["code"] == null) throw new TaskException($"API query failed with {json["error"].ToString(Formatting.None)}");
 
 						var errorcode = json["data"]["code"].Value<int>();
 
