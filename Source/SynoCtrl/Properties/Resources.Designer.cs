@@ -66,23 +66,31 @@ namespace SynoCtrl.Properties {
         ///Usage:
         ///  synoctrl status        [&lt;name&gt;] [options]
         ///  synoctrl shutdown      [&lt;name&gt;] [options]
+        ///  synoctrl reboot        [&lt;name&gt;] [options]
         ///  synoctrl wol           [&lt;name&gt;] [options]
         ///  synoctrl getip         [&lt;name&gt;] [options]
         ///  synoctrl getmac        [&lt;name&gt;] [options]
         ///  synoctrl ping          [&lt;name&gt;] [options]
-        ///  synoctrl create-config          [options]
+        ///  synoctrl create-config &lt;output_filename&gt; [options]
         ///  
         ///  synoctrl -h | --help
         ///  synoctrl --version
         ///
         ///Options:
-        ///  -h --help                      Show this screen.
-        ///  --version                      Show version.
-        ///  -- [rest of string was truncated]&quot;;.
+        ///  -h --help                      Show this screen. [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string cmd_schema {
             get {
                 return ResourceManager.GetString("cmd_schema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string config_example {
+            get {
+                return ResourceManager.GetString("config_example", resourceCulture);
             }
         }
     }

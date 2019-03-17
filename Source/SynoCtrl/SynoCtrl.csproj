@@ -61,6 +61,7 @@
     <Compile Include="Config\SynoCtrlConfigParseException.cs" />
     <Compile Include="Logger\SLogger.cs" />
     <Compile Include="Tasks\Impl\PingTask.cs" />
+    <Compile Include="Tasks\Impl\ConfigExampleTask.cs" />
     <Compile Include="Tasks\Impl\RebootTask.cs" />
     <Compile Include="Tasks\Impl\ShutdownTask.cs" />
     <Compile Include="Tasks\Impl\StatusTask.cs" />
@@ -104,6 +105,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\config_example.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.4.0.2\build\Fody.targets" Condition="Exists('..\packages\Fody.4.0.2\build\Fody.targets')" />

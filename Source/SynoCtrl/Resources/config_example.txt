@@ -1,0 +1,39 @@
+﻿################################################################################
+#                                                                              #
+#  This is the example config file for SynoCtrl                                #
+#                                                                              #
+#  Edit the config file and copy it to one of these destinations to use it:    #
+#      %program_location%\synoctrl.toml                                        #
+#      %userprofile%\.config\synoctrl.toml                                     #
+#      %userprofile%\synoctrl.toml                                             #
+#      %appdata%\synoctrl\synoctrl.toml                                        #
+#                                                                              #
+################################################################################
+
+Default = "MyDevice"             # The default device to use if no specific device is specified
+                                 # Can be removed if there shall be no default device.
+
+[[Device]]
+Name     = "MyDevice"            # Device name
+IP       = "192.168.0.20"        # IP address (optional)
+Port     = 1924                  # Port of DiskStation WebInterface (optional)
+HTTPS    = false                 # Enable HTTPS Communication (optional)
+Mac      = "00-11-22-33-44-55"   # MAC address (optional)
+Username = "usr"                 # DSM Web interface username (optional)
+Password = "pass"                # DSM Web interface password (optional)
+
+
+# You can add more than one device:
+
+# [[Device]]
+# Name     = "Demo2"               # Device name
+# IP       = "10.10.10.99"         # IP address (optional)
+# Port     = 1924                  # Port of DiskStation WebInterface (optional)
+# HTTPS    = false                 # Enable HTTPS Communication (optional)
+# Mac      = "00-A1-B2-C3-D4-E5"   # MAC address  (optional)
+# Username = "admin"               # DSM Web interface username (optional)
+# Password = "admin"               # DSM Web interface password (optional)
+
+
+# You can add more devices here and use them by their device-names in the command-line interface
+# ...

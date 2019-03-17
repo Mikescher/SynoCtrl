@@ -8,7 +8,7 @@ Usage:
   synoctrl getip         [<name>] [options]
   synoctrl getmac        [<name>] [options]
   synoctrl ping          [<name>] [options]
-  synoctrl create-config          [options]
+  synoctrl create-config <output_filename> [options] [--override]
   
   synoctrl -h | --help
   synoctrl --version
