@@ -2,6 +2,8 @@
 
 SynoCtrl is a command-line program to remotely control your Synology NAS
 
+**[ [ DOWNLOAD ] ](https://github.com/Mikescher/SynoCtrl/releases/latest)**
+
 ## Features
 
  - Show Synology status (`synoctrl status-all [<name>] [--info] [options]`)
