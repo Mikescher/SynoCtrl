@@ -7,9 +7,9 @@ namespace SynoCtrl.Tasks.Impl
 		protected override int Execute()
 		{
 			WriteInfo();
-			WriteInfo("        Name        |   Description                                            ");
-			WriteInfo("--------------------|----------------------------------------------------------");
-			foreach (var v in StatusAPIValues.VALUES) WriteInfo($" {v.ID.PadRight(19, ' ')}| {v.Description}");
+			WriteInfo("          Name          |   Description                                        ");
+			WriteInfo("------------------------|------------------------------------------------------");
+			foreach (var v in StatusAPIValues.VALUES) WriteInfo($" {v.ID.PadRight(23, ' ')}| {v.Description}");
 			WriteInfo();
 
 			return 0;

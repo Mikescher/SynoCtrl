@@ -71,3 +71,8 @@ namespace SynoCtrl
 		}
 	}
 }
+
+
+//TODO List Shares (EP already in StatusAPIValues)
+//TODO List Drives (EP already in StatusAPIValues)
+//TODO Status Info about specific share (EP already in StatusAPIValues)
