@@ -35,6 +35,17 @@ namespace SynoCtrl.Logger
 			return 0;
 		}
 
+		public int WriteInfoOutputVerbose(string msgSilent, string msgNormal, string msgVerbose)
+		{
+			if (silent) 
+				Console.Out.WriteLine(msgSilent);
+			else if (verbose) 
+				Console.Out.WriteLine(msgVerbose);
+			else
+				Console.Out.WriteLine(msgNormal);
+			return 0;
+		}
+
 		public void WriteInfo(string msg = "")
 		{
 			if (silent) return;

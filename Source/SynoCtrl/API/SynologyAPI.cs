@@ -10,6 +10,7 @@ using System.Text;
 using Newtonsoft.Json.Linq;
 using SynoCtrl.Tasks;
 using Newtonsoft.Json;
+using SynoCtrl.API;
 
 namespace SynoCtrl.Util
 {
@@ -24,23 +25,32 @@ namespace SynoCtrl.Util
 	
 		private static readonly Random RAND = new Random();
 
-
-
-		public static void Status(IPAddress addr, long port, bool tls, string username, string password)
+		public static void Status(IPAddress addr, long port, bool tls, string username, string password, List<StatusAPIValue> values)
 		{
 			var session = Login(addr, port, tls, username, password);
 
-			var r1  = Query(addr, port, tls, "SYNO.DSM.Info", "getinfo", session, null);
-			var r2  = Query(addr, port, tls, "SYNO.Core.System.Status", "get", session, null);
-			var r3  = Query(addr, port, tls, "SYNO.FileStation.Info", "get", session, null);
-			var r4  = Query(addr, port, tls, "SYNO.FileStation.List", "list_share", session, new[] { P("additional", "[\"real_path\",\"size\",\"owner\",\"time\",\"perm\",\"mount_point_type\",\"volume_status\"]") });
-			var r5  = Query(addr, port, tls, "SYNO.Core.CurrentConnection", "list", session, null);
-			var r6  = Query(addr, port, tls, "SYNO.Core.Network", "get", session, null);
-			var r7  = Query(addr, port, tls, "SYNO.Core.Service", "get", session, null);
-			var r8  = Query(addr, port, tls, "SYNO.Core.System", "info", session, null);
-			var r9  = Query(addr, port, tls, "SYNO.Core.System.Utilization", "get", session, null);
-			var r10 = Query(addr, port, tls, "SYNO.Core.User", "list", session, null);
-			
+			var requests = values.Select(v => v.Endpoint).Distinct().ToList();
+			var data = new Dictionary<StatusAPIEndpoint, JObject>();
+
+			foreach (var req in requests)
+			{
+				data.Add(req, Query(addr, port, tls, req.API, req.Method, req.Version, session, req.Parameter));
+			}
+
+			var pad1 = values.Max(v => v.ID.Length);
+			var pad2 = values.Max(v => v.Getter(data[v.Endpoint]).Length);
+
+			foreach (var val in values)
+			{
+				var info = val.Getter(data[val.Endpoint]);
+				var norm = $"{val.ID.PadRight(pad1, ' ')} : {info}";
+				var verb = $"{val.ID.PadRight(pad1, ' ')} : {info.PadRight(pad2, ' ')}   # {val.Description}";
+
+				if (SynoCtrlProgram.Arguments["--info"].IsTrue) info = norm = verb;
+
+				SynoCtrlProgram.Logger.WriteInfoOutputVerbose(info, norm, verb);
+			}
+
 			Logout(addr, port, tls, session);
 		}
 
@@ -48,21 +58,21 @@ namespace SynoCtrl.Util
 		{
 			var session = Login(addr, port, tls, username, password);
 
-			Query(addr, port, tls, "SYNO.Core.System", "shutdown", session, null);
+			Query(addr, port, tls, "SYNO.Core.System", "shutdown", 1, session, null);
 		}
 
 		public static void Reboot(IPAddress addr, long port, bool tls, string username, string password)
 		{
 			var session = Login(addr, port, tls, username, password);
 
-			Query(addr, port, tls, "SYNO.Core.System", "reboot", session, null);
+			Query(addr, port, tls, "SYNO.Core.System", "reboot", 1, session, null);
 		}
 
 		public static Tuple<string, string> Login(IPAddress addr, long port, bool tls, string username, string password)
 		{
 			var sn = $"SynoCtrl_{DateTime.Now.ToFileTimeUtc()}_{RAND.Next(int.MaxValue)}";
 
-			var data = Query(addr, port, tls, "SYNO.API.Auth", "login", null, new[]{P("account", username), P("passwd", password), P("format", "sid"), P("session", sn)});
+			var data = Query(addr, port, tls, "SYNO.API.Auth", "login", 6, null, new[]{P("account", username), P("passwd", password), P("format", "sid"), P("session", sn)});
 
 			var sid = data["sid"].Value<string>();
 			
@@ -82,14 +92,18 @@ namespace SynoCtrl.Util
 
 		private static Tuple<string, string> P(string key, string value) => Tuple.Create(key, value);
 		
-		private static JObject Query(IPAddress addr, long port, bool tls, string api, string method, Tuple<string, string> session, Tuple<string, string>[] parameter)
+		private static JObject Query(IPAddress addr, long port, bool tls, string api, string method, int? version, Tuple<string, string> session, Tuple<string, string>[] parameter)
 		{
 			var info = Query(addr, port, tls, "query.cgi", "SYNO.API.Info", 1, "query", null, new[] { P("query", api) });
 
 			if (!info.ContainsKey(api)) throw new TaskException($"API target {api}' not found");
 
 			var path = info[api]["path"].Value<string>();
-			var vers = info[api]["minVersion"].Value<int>();
+			var versMin = info[api]["minVersion"].Value<int>();
+			var versMax = info[api]["maxVersion"].Value<int>();
+
+			var vers = versMax;
+			if (version != null && version>=versMin && version <= versMax) vers = version.Value;
 	
 			return Query(addr, port, tls, path, api, vers, method, session, parameter);
 		}

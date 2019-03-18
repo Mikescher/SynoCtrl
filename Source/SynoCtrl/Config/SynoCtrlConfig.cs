@@ -164,7 +164,7 @@ namespace SynoCtrl.Config
 				{
 					var selName = $"{SynoCtrlProgram.Arguments["<name>"].Value}";
 					result.Selected = result._configs.FirstOrDefault(c => string.Equals(c.Name, selName, StringComparison.CurrentCultureIgnoreCase));
-					if (result._default == null) throw new SynoCtrlConfigParseException($"Device '{selName}' not found");
+					if (result.Selected == null) throw new SynoCtrlConfigParseException($"Device '{selName}' not found");
 				}
 				else
 				{

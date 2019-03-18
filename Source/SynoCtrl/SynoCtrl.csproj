@@ -56,6 +56,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\StatusAPIEndpoint.cs" />
+    <Compile Include="API\StatusAPIValue.cs" />
+    <Compile Include="API\StatusAPIValues.cs" />
     <Compile Include="Config\SingleDeviceConfig.cs" />
     <Compile Include="Config\SynoCtrlConfig.cs" />
     <Compile Include="Config\SynoCtrlConfigParseException.cs" />
@@ -64,6 +67,7 @@
     <Compile Include="Tasks\Impl\ConfigExampleTask.cs" />
     <Compile Include="Tasks\Impl\RebootTask.cs" />
     <Compile Include="Tasks\Impl\ShutdownTask.cs" />
+    <Compile Include="Tasks\Impl\StatusListTask.cs" />
     <Compile Include="Tasks\Impl\StatusTask.cs" />
     <Compile Include="Util\SCUtil.cs" />
     <Compile Include="SynoCtrlProgram.cs" />
@@ -78,8 +82,8 @@
     <Compile Include="Tasks\SCTask.cs" />
     <Compile Include="Tasks\Impl\WakeOnLANTask.cs" />
     <Compile Include="Tasks\TaskException.cs" />
-    <Compile Include="Util\SynologyAPI.cs" />
-    <Compile Include="Util\SynologyAPIErrors.cs" />
+    <Compile Include="API\SynologyAPI.cs" />
+    <Compile Include="API\SynologyAPIErrors.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

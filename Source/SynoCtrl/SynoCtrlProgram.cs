@@ -37,6 +37,9 @@ namespace SynoCtrl
 				if (Arguments["getip"].IsTrue)         return new GetIPTask().Run();
 				if (Arguments["ping"].IsTrue)          return new PingTask().Run();
 				if (Arguments["status"].IsTrue)        return new StatusTask().Run();
+				if (Arguments["status-all"].IsTrue)    return new StatusTask().Run();
+				if (Arguments["status-list"].IsTrue)        return new StatusListTask().Run();
+				if (Arguments["status"].IsTrue)        return new StatusTask().Run();
 				if (Arguments["shutdown"].IsTrue)      return new ShutdownTask().Run();
 				if (Arguments["reboot"].IsTrue)        return new RebootTask().Run();
 				if (Arguments["create-config"].IsTrue) return new ConfigExampleTask(Arguments["<output_filename>"].Value?.ToString()).Run();

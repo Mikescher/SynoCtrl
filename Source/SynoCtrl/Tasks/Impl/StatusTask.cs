@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using MSHC.Math.Encryption;
+using SynoCtrl.API;
 using SynoCtrl.Util;
 
 namespace SynoCtrl.Tasks.Impl
@@ -40,7 +42,24 @@ namespace SynoCtrl.Tasks.Impl
 			WriteDebug($"Target IP address is {config.Selected.IPAddress}");
 			WriteDebug();
 
-			SynologyAPI.Status(config.Selected.IPAddressRaw, config.Selected.Port ?? -1, config.Selected.UseTLS, config.Selected.Username, config.Selected.Password);
+			var values = new List<StatusAPIValue>();
+			if (SynoCtrlProgram.Arguments["status-all"].IsTrue || SynoCtrlProgram.Arguments["<status_fields>"].Value.ToString().ToLower() == "all")
+			{
+				values = StatusAPIValues.VALUES.ToList();
+			}
+			else
+			{
+				foreach (var arg in SynoCtrlProgram.Arguments["<status_fields>"].Value.ToString().Split(',', ';'))
+				{
+					var match = StatusAPIValues.VALUES.FirstOrDefault(v => string.Equals(v.ID, arg.Trim(), StringComparison.CurrentCultureIgnoreCase));
+
+					if (match == null) throw new TaskException($"Unknown status field: [{arg}]");
+
+					if (!values.Contains(match)) values.Add(match);
+				}
+			}
+
+			SynologyAPI.Status(config.Selected.IPAddressRaw, config.Selected.Port ?? -1, config.Selected.UseTLS, config.Selected.Username, config.Selected.Password, values);
 
 			return 0;
 		}

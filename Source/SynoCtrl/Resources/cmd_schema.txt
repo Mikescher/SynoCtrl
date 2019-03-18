@@ -1,14 +1,19 @@
 SynologyController.
 
 Usage:
-  synoctrl status        [<name>] [options]
-  synoctrl shutdown      [<name>] [options]
-  synoctrl reboot        [<name>] [options]
-  synoctrl wol           [<name>] [options]
-  synoctrl getip         [<name>] [options]
-  synoctrl getmac        [<name>] [options]
-  synoctrl ping          [<name>] [options]
-  synoctrl create-config <output_filename> [options] [--override]
+  synoctrl shutdown [<name>] [options]
+  synoctrl reboot [<name>] [options]
+  
+  synoctrl wol [<name>] [options]
+  synoctrl getip [<name>] [options]
+  synoctrl getmac [<name>] [options]
+  synoctrl ping [<name>] [options]
+  
+  synoctrl status <status_fields> [<name>] [--info] [options]
+  synoctrl status-all [<name>] [--info] [options]
+  synoctrl status-list [options]
+  
+  synoctrl create-config <output_filename> [--override] [options]
   synoctrl -h | --help
   synoctrl --version
 
