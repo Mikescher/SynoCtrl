@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using MSHC.Math.Encryption;
 using SynoCtrl.API;
-using SynoCtrl.Util;
 
 namespace SynoCtrl.Tasks.Impl
 {

@@ -5,7 +5,6 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Security;
 using MSHC.Math.Encryption;
-using SynoCtrl.Util;
 
 namespace SynoCtrl.Tasks.Impl
 {

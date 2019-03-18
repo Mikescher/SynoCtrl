@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace SynoCtrl.Util
+namespace SynoCtrl.API
 {
 	public static class SynologyAPIErrors
 	{

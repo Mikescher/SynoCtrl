@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using MSHC.Math.Encryption;
-using SynoCtrl.Util;
 
 namespace SynoCtrl.Tasks.Impl
 {

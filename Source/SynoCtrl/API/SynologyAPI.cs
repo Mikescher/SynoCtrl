@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Net;
 using System.Net.Http;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Web;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SynoCtrl.Tasks;
-using Newtonsoft.Json;
-using SynoCtrl.API;
 
-namespace SynoCtrl.Util
+namespace SynoCtrl.API
 {
 	public static class SynologyAPI // https://global.download.synology.com/download/Document/DeveloperGuide/Synology_Download_Station_Web_API.pdf
 	                                // https://global.download.synology.com/download/Document/DeveloperGuide/Synology_File_Station_API_Guide.pdf
