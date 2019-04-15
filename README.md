@@ -85,7 +85,7 @@ You can create a example config file with the command `synoctrl create-config sy
 
 ### Shutdown/Reboot
 
-You can shutdown the device `Melkor` with the command `synoctrl shutdown MyDevice`.  
+You can shutdown the device `Melkor` with the command `synoctrl shutdown Melkor`.  
 This uses the Synology DSM API to send an shutdown request.  
 If you do not have a configuration file you can supply all parameter by yourself:  
 `synoctrl shutdown --ip 192.168.0.100 --user admin --password admin`  
@@ -116,7 +116,7 @@ But the normal way is to call *status* together with a comma-separated list of f
 
 If you only want the raw unformatted value you can add `--silent` and if you want the value together with the field description you can add `--info`
 
-##Contribution
+## Contribution
 
 Contributions are always welcome, if you're missing something feel free to send a pull request. Also if you find a bug or have a feature request create an [issue](https://github.com/Mikescher/SynoCtrl/issues).
 
