@@ -112,80 +112,81 @@ namespace SynoCtrl.API
 		{
 			try
 			{
-				using (var wc = new HttpClient())
-				{
-					var uristr = $"{(tls?"https":"http")}://{addr}:{port}/webapi/{endpoint}?api={api}&version={version}&method={method}";
-					if (parameter != null) foreach (var up in parameter) uristr += $"&{up.Item1}={HttpUtility.UrlEncode(up.Item2)}";
-					if (auth != null) uristr += $"&_sid={auth.Item1}";
+                using var wch = new HttpClientHandler { ServerCertificateCustomValidationCallback = AcceptAll };
 
-					var uri = new Uri(uristr);
+                using var wc = new HttpClient(wch);
 
-					SynoCtrlProgram.Logger.WriteDebug($"Sending API request to {uri}");
+                var uristr = $"{(tls ? "https" : "http")}://{addr}:{port}/webapi/{endpoint}?api={api}&version={version}&method={method}";
+                if (parameter != null) foreach (var up in parameter) uristr += $"&{up.Item1}={HttpUtility.UrlEncode(up.Item2)}";
+                if (auth != null) uristr += $"&_sid={auth.Item1}";
 
-					var request = new HttpRequestMessage
-					{
-						RequestUri = uri,
-						Method = HttpMethod.Get,
-						Headers =
-						{
-							{"User-Agent", $"SynoCtrl_{SynoCtrlProgram.VERSION}"},
-						}
-					};
-				
-					HttpResponseMessage response;
-					if (tls)
-					{
-						var prot = ServicePointManager.SecurityProtocol;
-						ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-						ServicePointManager.ServerCertificateValidationCallback += AcceptAll;
-						response = wc.SendAsync(request).Result;
-						ServicePointManager.ServerCertificateValidationCallback -= AcceptAll;
-						ServicePointManager.SecurityProtocol = prot;
-					}
-					else
-					{
-						response = wc.SendAsync(request).Result;
-					}
+                var uri = new Uri(uristr);
 
-					if (!response.IsSuccessStatusCode)
-					{
-						string content = string.Empty;
-						try
-						{
-							content = Encoding.UTF8.GetString(response.Content.ReadAsByteArrayAsync().Result);
-						}
-						catch (Exception)
-						{
-							// ignore
-						}
-						
-						SynoCtrlProgram.Logger.WriteDebug($"API responded with status code {response.StatusCode}: {content}");
-						SynoCtrlProgram.Logger.WriteDebug();
-						
-						throw new TaskException($"Login API Request failed with status code {response.StatusCode}");
-					}
-					else
-					{
-						var content = Encoding.UTF8.GetString(response.Content.ReadAsByteArrayAsync().Result);
+                SynoCtrlProgram.Logger.WriteDebug($"Sending API request to {uri}");
 
-						SynoCtrlProgram.Logger.WriteDebug($"API responded with status code {response.StatusCode}: {content}");
-						SynoCtrlProgram.Logger.WriteDebug();
-						
-						var json = JObject.Parse(content);
+                var request = new HttpRequestMessage
+                {
+                    RequestUri = uri,
+                    Method = HttpMethod.Get,
+                    Headers =
+                        {
+                            {"User-Agent", $"SynoCtrl_{SynoCtrlProgram.VERSION}"},
+                        }
+                };
 
-						if (json.ContainsKey("success") && json.GetValue("success").Value<bool>()) return (JObject) json["data"];
+                HttpResponseMessage response;
+                if (tls)
+                {
+                    var prot = ServicePointManager.SecurityProtocol;
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+                    ServicePointManager.ServerCertificateValidationCallback += AcceptAll;
+                    response = wc.SendAsync(request).Result;
+                    ServicePointManager.ServerCertificateValidationCallback -= AcceptAll;
+                    ServicePointManager.SecurityProtocol = prot;
+                }
+                else
+                {
+                    response = wc.SendAsync(request).Result;
+                }
 
-						if (json["error"]?["code"] == null) throw new TaskException($"API query failed with {json["error"].ToString(Formatting.None)}");
+                if (!response.IsSuccessStatusCode)
+                {
+                    string content = string.Empty;
+                    try
+                    {
+                        content = Encoding.UTF8.GetString(response.Content.ReadAsByteArrayAsync().Result);
+                    }
+                    catch (Exception)
+                    {
+                        // ignore
+                    }
 
-						var errorcode = json["data"]["code"].Value<int>();
+                    SynoCtrlProgram.Logger.WriteDebug($"API responded with status code {response.StatusCode}: {content}");
+                    SynoCtrlProgram.Logger.WriteDebug();
 
-						var errormessage = SynologyAPIErrors.GetErrorMessage(api, errorcode);
-						if (errormessage != null) throw new TaskException($"API query failed with error {errorcode}: {errormessage}");
+                    throw new TaskException($"Login API Request failed with status code {response.StatusCode}");
+                }
+                else
+                {
+                    var content = Encoding.UTF8.GetString(response.Content.ReadAsByteArrayAsync().Result);
 
-						throw new TaskException($"API query failed with unknown error code {errorcode}");
-					}
-				}
-			}
+                    SynoCtrlProgram.Logger.WriteDebug($"API responded with status code {response.StatusCode}: {content}");
+                    SynoCtrlProgram.Logger.WriteDebug();
+
+                    var json = JObject.Parse(content);
+
+                    if (json.ContainsKey("success") && json.GetValue("success").Value<bool>()) return (JObject)json["data"];
+
+                    if (json["error"]?["code"] == null) throw new TaskException($"API query failed with {json["error"].ToString(Formatting.None)}");
+
+                    var errorcode = json["data"]["code"].Value<int>();
+
+                    var errormessage = SynologyAPIErrors.GetErrorMessage(api, errorcode);
+                    if (errormessage != null) throw new TaskException($"API query failed with error {errorcode}: {errormessage}");
+
+                    throw new TaskException($"API query failed with unknown error code {errorcode}");
+                }
+            }
 			catch (TaskException)
 			{
 				throw;

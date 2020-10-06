@@ -19,7 +19,7 @@ namespace SynoCtrl.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -64,20 +64,21 @@ namespace SynoCtrl.Properties {
         ///   Looks up a localized string similar to SynologyController.
         ///
         ///Usage:
-        ///  synoctrl status        [&lt;name&gt;] [options]
-        ///  synoctrl shutdown      [&lt;name&gt;] [options]
-        ///  synoctrl reboot        [&lt;name&gt;] [options]
-        ///  synoctrl wol           [&lt;name&gt;] [options]
-        ///  synoctrl getip         [&lt;name&gt;] [options]
-        ///  synoctrl getmac        [&lt;name&gt;] [options]
-        ///  synoctrl ping          [&lt;name&gt;] [options]
-        ///  synoctrl create-config &lt;output_filename&gt; [options]
+        ///  synoctrl shutdown [&lt;name&gt;] [options]
+        ///  synoctrl reboot [&lt;name&gt;] [options]
         ///  
+        ///  synoctrl wol [&lt;name&gt;] [options]
+        ///  synoctrl getip [&lt;name&gt;] [options]
+        ///  synoctrl getmac [&lt;name&gt;] [options]
+        ///  synoctrl ping [&lt;name&gt;] [options]
+        ///  
+        ///  synoctrl status &lt;status_fields&gt; [&lt;name&gt;] [--info] [options]
+        ///  synoctrl status-all [&lt;name&gt;] [--info] [options]
+        ///  synoctrl status-list [options]
+        ///  
+        ///  synoctrl create-config &lt;output_filename&gt; [--override] [options]
         ///  synoctrl -h | --help
-        ///  synoctrl --version
-        ///
-        ///Options:
-        ///  -h --help                      Show this screen. [rest of string was truncated]&quot;;.
+        ///  syno [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string cmd_schema {
             get {
@@ -86,7 +87,13 @@ namespace SynoCtrl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to ################################################################################
+        ///#                                                                              #
+        ///#  This is the example config file for SynoCtrl                                #
+        ///#                                                                              #
+        ///#  Edit the config file and copy it to one of these destinations to use it:    #
+        ///#      %program_location%\synoctrl.toml                                        #
+        ///#      %userprofile% [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string config_example {
             get {

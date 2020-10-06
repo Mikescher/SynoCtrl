@@ -85,7 +85,7 @@ You can create a example config file with the command `synoctrl create-config sy
 
 ### Shutdown/Reboot
 
-You can shutdown the device `Melkor` with the command `synoctrl shutdown Melkor`.  
+You can shutdown the device `MyDevice` with the command `synoctrl shutdown MyDevice`.  
 This uses the Synology DSM API to send an shutdown request.  
 If you do not have a configuration file you can supply all parameter by yourself:  
 `synoctrl shutdown --ip 192.168.0.100 --user admin --password admin`  
