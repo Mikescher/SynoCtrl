@@ -1,4 +1,4 @@
-# SynoCtrl [![Build status](https://ci.appveyor.com/api/projects/status/lk6vwv65v7cmy98b?svg=true)](https://ci.appveyor.com/project/Mikescher/synoctrl)
+# SynoCtrl
 
 SynoCtrl is a command-line program to remotely control your Synology NAS
 
