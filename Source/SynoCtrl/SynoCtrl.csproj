@@ -1,16 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <PropertyGroup>
     <Title>SynoCtrl</Title>
-    <Copyright>Copyright © Mikescher 2020</Copyright>
-    <AssemblyVersion>1.1.0</AssemblyVersion>
-    <FileVersion>1.1.0</FileVersion>
-    <Version>1.1.0</Version>
+    <Copyright>Copyright © Mikescher 2024</Copyright>
+    <AssemblyVersion>1.2.0</AssemblyVersion>
+    <FileVersion>1.2.0</FileVersion>
+    <Version>1.2.0</Version>
   </PropertyGroup>
   
   <PropertyGroup>
@@ -34,10 +34,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\CSharpUtils\CSharpUtils.csproj" />
-  </ItemGroup>
-  
-  <ItemGroup>
     <Content Include="Resources\config_example.txt" />
   </ItemGroup>
   
@@ -46,6 +42,10 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\CSharpUtils\LanguageUtils\LanguageUtils.csproj" />
   </ItemGroup>
   
 </Project>
